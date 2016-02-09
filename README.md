@@ -31,7 +31,7 @@ puts post.title
 author = ButterCMS::Author.find("author-slug")
 puts author.first_name
 
-category = ButterCMS::Category.find("author-slug")
+category = ButterCMS::Category.find("category-slug")
 puts category.name
 
 rss_feed = ButterCMS::Feed.find(:rss)
