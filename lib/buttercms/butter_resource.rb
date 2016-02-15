@@ -3,16 +3,15 @@ module ButterCMS
     attr_reader :meta, :data
 
     def initialize(json)
-      data = json["data"]
-      meta = json["meta"]
-
       @json = json
-      @data = HashToObject.convert(data)
-      @meta = HashToObject.convert(meta) if meta
+      @data = HashToObject.convert(json["data"])
+      @meta = HashToObject.convert(json["meta"]) if json["meta"]
 
-      data.each do |key, value|
-        instance_variable_set("@#{key}", @data.send(key))
-        self.class.send(:attr_reader, key)
+      if json["data"].is_a?(Hash)
+        json["data"].each do |key, value|
+          instance_variable_set("@#{key}", @data.send(key))
+          self.class.send(:attr_reader, key)
+        end
       end
     end
 
