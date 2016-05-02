@@ -33,8 +33,7 @@ module ButterCMS
       method: :get,
       url: endpoint + path,
       headers: {
-        authorization: "Token #{@token}",
-        params: options
+        params: options.merge(auth_token: @token)
       },
       verify_ssl: false
     )
