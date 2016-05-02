@@ -29,9 +29,15 @@ module ButterCMS
   def self.request(path, options = {})
     raise ArgumentError.new "Please set your API token" unless token
 
-    response = RestClient.get(endpoint + path,
-      {accept: :json, authorization: "Token #{@token}", params: options})
-
+    response = RestClient::Request.execute(
+      method: :get,
+      url: endpoint + path,
+      headers: {
+        authorization: "Token #{@token}",
+        params: options
+      },
+      verify_ssl: false
+    )
 
     JSON.parse(response.body)
   end
