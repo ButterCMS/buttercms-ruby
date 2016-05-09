@@ -25,6 +25,9 @@ posts = ButterCMS::Post.all(page: 1, page_size: 10)
 puts posts.first.title
 puts posts.meta.next_page
 
+posts = ButterCMS::Post.search("my favorite post", {page: 1, page_size: 10})
+puts posts.first.title
+
 post = ButterCMS::Post.find("post-slug")
 puts post.title
 
