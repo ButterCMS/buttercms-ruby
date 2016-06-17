@@ -10,6 +10,11 @@ require 'buttercms/category'
 require 'buttercms/post'
 require 'buttercms/feed'
 
+# See https://github.com/jruby/jruby/issues/3113
+if RUBY_VERSION < '2.0.0'
+  require_relative 'core_ext/ostruct'
+end
+
 module ButterCMS
   @api_url = 'https://api.buttercms.com/v2'
   @token = nil
