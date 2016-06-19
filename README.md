@@ -39,5 +39,12 @@ puts category.name
 
 rss_feed = ButterCMS::Feed.find(:rss)
 puts rss_feed.data
+
+# Try our new custom content feature
+content = ButterCMS::Content.fetch([
+  :homepage_html_title,
+  :homepage_meta_description,
+  :homepage_headline
+])
 ```
 
