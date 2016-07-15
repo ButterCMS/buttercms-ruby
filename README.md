@@ -1,5 +1,9 @@
 # ButterCMS API Ruby Client
 
+## Documentation
+
+For a comprehensive list of examples, check out the [API documentation](https://buttercms.com/docs/api/).
+
 ## Setup
 
 To setup your project, follow these steps:
