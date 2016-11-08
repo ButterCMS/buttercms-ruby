@@ -41,6 +41,9 @@ puts author.first_name
 category = ButterCMS::Category.find("category-slug")
 puts category.name
 
+tags = ButterCMS::Tag.all
+p tags
+
 rss_feed = ButterCMS::Feed.find(:rss)
 puts rss_feed.data
 
