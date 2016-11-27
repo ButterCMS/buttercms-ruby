@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
 
   s.add_dependency 'rest-client', '>= 1.7.0', '< 2'
+  s.add_dependency 'redis', '>= 3.0.0'
 
   s.add_development_dependency 'rspec', '~> 2.7'
   s.add_development_dependency 'webmock'
