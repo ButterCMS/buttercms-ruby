@@ -11,7 +11,7 @@ To setup your project, follow these steps:
 1. Install using `gem install buttercms-ruby` or by adding to your `Gemfile`:
 
   ```ruby
-  gem 'buttercms-ruby', '~>1.0.10'
+  gem 'buttercms-ruby'
   ```
 
 2. Set your API token.
