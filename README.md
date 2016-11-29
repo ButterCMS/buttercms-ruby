@@ -47,7 +47,6 @@ p tags
 rss_feed = ButterCMS::Feed.find(:rss)
 puts rss_feed.data
 
-# Try our new custom content feature
 content = ButterCMS::Content.fetch([
   :homepage_html_title,
   :homepage_meta_description,
@@ -55,3 +54,17 @@ content = ButterCMS::Content.fetch([
 ])
 ```
 
+## Fallback Data Store
+
+This client supports automatic fallback to a data store when API requests fail. When a data store is set, on every successful API request the response is written to the data store. When a subsequent API request fails, the client attempts to fallback to the value in the data store. Currently, Redis and YAML Store are supported.
+
+```ruby
+# Use YAMLstore
+ButterCMS::data_store = :yaml, "/File/Path/For/buttercms.store"
+
+# Use Redis
+ButterCMS::data_store = :redis, ENV['REDIS_URL']
+
+# Set logger (optional)
+ButterCMS::logger = MyLogger.new
+```
