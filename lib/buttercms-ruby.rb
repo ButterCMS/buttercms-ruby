@@ -25,8 +25,9 @@ end
 module ButterCMS
   @api_url = 'https://api.buttercms.com/v2'
 
-  class <<self
+  class << self
     attr_accessor :api_token
+    attr_accessor :test_mode
     attr_reader :data_store
     attr_writer :logger
   end
@@ -58,11 +59,19 @@ module ButterCMS
   end
 
   def self.api_request(path, options = {})
+    base_options = {
+      auth_token: api_token
+    }
+
+    if test_mode
+      base_options[:test] = 1
+    end
+
     response = RestClient::Request.execute(
       method: :get,
       url: @api_url + path,
       headers: {
-        params: options.merge(auth_token: api_token)
+        params: options.merge(base_options)
       },
       verify_ssl: false
     )

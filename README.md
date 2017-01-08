@@ -20,6 +20,9 @@ To setup your project, follow these steps:
   require 'buttercms-ruby'
 
   ButterCMS::api_token = "YourToken"
+
+  # Fetch content from test mode (eg. for your staging website)
+  # ButterCMS::test_mode = true
   ```
 
 ## Quick Start
@@ -67,4 +70,12 @@ ButterCMS::data_store = :redis, ENV['REDIS_URL']
 
 # Set logger (optional)
 ButterCMS::logger = MyLogger.new
+```
+
+## Test mode
+
+Test mode can be used to setup a staging website for previewing content or for testing content during local development. To fetch content from test mode add the following configuration:
+
+```ruby
+ButterCMS::test_mode = true
 ```
