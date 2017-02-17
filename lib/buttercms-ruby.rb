@@ -1,10 +1,13 @@
 require 'json'
-require 'rest_client'
+require 'httparty'
 require 'ostruct'
 require "redis"
+require 'logger'
 require 'yaml/store'
 
+require_relative 'buttercms/version'
 require_relative 'buttercms/hash_to_object'
+
 require_relative 'buttercms/butter_collection'
 require_relative 'buttercms/butter_resource'
 require_relative 'buttercms/author'
@@ -67,13 +70,12 @@ module ButterCMS
       base_options[:test] = 1
     end
 
-    response = RestClient::Request.execute(
-      method: :get,
-      url: @api_url + path,
-      headers: {
-        params: options.merge(base_options)
-      },
-      verify_ssl: false
+
+    response = HTTParty.get(
+      @api_url + path, 
+      headers: {"User-Agent" => "ButterCMS/#{ButterCMS::VERSION}"},
+      query: options.merge(base_options),
+      verify: false
     )
 
     response.body
