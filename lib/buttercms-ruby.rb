@@ -70,7 +70,6 @@ module ButterCMS
       base_options[:test] = 1
     end
 
-
     response = HTTParty.get(
       @api_url + path, 
       headers: {"User-Agent" => "ButterCMS/#{ButterCMS::VERSION}"},

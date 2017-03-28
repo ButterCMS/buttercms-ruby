@@ -57,6 +57,14 @@ content = ButterCMS::Content.fetch([
 ])
 ```
 
+## Localization
+
+Setup locales in the ButterCMS dashboard and fetch localized content using the `locale` option:
+
+```ruby
+ButterCMS::Content.fetch(['landing_pages'], locale: :es)
+```
+
 ## Fallback Data Store
 
 This client supports automatic fallback to a data store when API requests fail. When a data store is set, on every successful API request the response is written to the data store. When a subsequent API request fails, the client attempts to fallback to the value in the data store. Currently, Redis and YAML Store are supported.

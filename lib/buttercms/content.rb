@@ -12,8 +12,10 @@ module ButterCMS
       "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@json)
     end
 
-    def self.fetch(keys = [])
-      response = ButterCMS.request("/content", {keys: keys.join(',')})
+    def self.fetch(keys = [], options = {})
+      params = {keys: keys.join(',')}.merge(options)
+
+      response = ButterCMS.request("/content", params)
 
       self.new(response)
     end
