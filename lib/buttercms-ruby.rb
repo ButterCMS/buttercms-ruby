@@ -1,9 +1,7 @@
 require 'json'
 require 'httparty'
 require 'ostruct'
-require "redis"
 require 'logger'
-require 'yaml/store'
 
 require_relative 'buttercms/version'
 require_relative 'buttercms/hash_to_object'
@@ -16,9 +14,6 @@ require_relative 'buttercms/tag'
 require_relative 'buttercms/post'
 require_relative 'buttercms/feed'
 require_relative 'buttercms/content'
-
-require_relative 'buttercms/data_store_adapters/yaml'
-require_relative 'buttercms/data_store_adapters/redis'
 
 # See https://github.com/jruby/jruby/issues/3113
 if RUBY_VERSION < '2.0.0'
@@ -36,7 +31,7 @@ module ButterCMS
   end
 
   def self.logger
-    @logger ||= Logger.new($stdout).tap do |log| 
+    @logger ||= Logger.new($stdout).tap do |log|
       log.progname = "ButterCMS"
     end
   end
@@ -47,14 +42,16 @@ module ButterCMS
     if args.count < 2
       raise ArgumentError.new "Wrong number of arguments"
     end
-    
+
     strategy = args.first
     options = args.drop(1)
 
     case strategy
     when :yaml
+      require_relative 'buttercms/data_store_adapters/yaml'
       @data_store = ButterCMS::DataStoreAdapters::Yaml.new(options)
     when :redis
+      require_relative 'buttercms/data_store_adapters/redis'
       @data_store = ButterCMS::DataStoreAdapters::Redis.new(options)
     else
       raise ArgumentError.new "Invalid ButterCMS data store #{strategy}"
@@ -71,7 +68,7 @@ module ButterCMS
     end
 
     response = HTTParty.get(
-      @api_url + path, 
+      @api_url + path,
       headers: {"User-Agent" => "ButterCMS/#{ButterCMS::VERSION}"},
       query: options.merge(base_options),
       verify: false
@@ -89,7 +86,7 @@ module ButterCMS
       result = api_request(path, options)
 
       if data_store
-        data_store.set(key, result) 
+        data_store.set(key, result)
         logger.info "Set key #{key}"
       end
 
