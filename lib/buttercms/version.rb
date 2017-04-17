@@ -1,3 +1,3 @@
 module ButterCMS
-  VERSION = '1.1.3'
+  VERSION = '1.2.0'
 end
