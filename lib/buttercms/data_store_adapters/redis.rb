@@ -1,9 +1,16 @@
+begin
+  require 'redis'
+rescue LoadError
+  puts "WARNING: redis >= 3.0.0 is required to use the redis data store."
+  raise
+end
+
 module ButterCMS
   module DataStoreAdapters
     class Redis
       def initialize(options)
         redis_url = options.first
-        
+
         @redis = ::Redis.new(url: redis_url)
       end
 

@@ -1,3 +1,5 @@
+require 'yaml/store'
+
 module ButterCMS
   module DataStoreAdapters
     class Yaml
