@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'httparty', '~> 0.14', '>= 0.14.0'
 
-  s.add_development_dependency 'rspec', '~> 2.7'
+  s.add_development_dependency 'rspec'
   s.add_development_dependency 'webmock'
   s.required_ruby_version = '>= 1.9.3'
 

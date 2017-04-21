@@ -4,7 +4,7 @@ describe ButterCMS do
   describe '.request' do
     context 'with an api token' do
       before do
-        ButterCMS.stub(:api_token).and_return('test123')
+        allow(ButterCMS).to receive(:api_token).and_return('test123')
       end
 
       it 'should make an api request' do

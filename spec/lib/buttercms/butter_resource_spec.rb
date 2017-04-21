@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe ButterCMS::ButterResource do
-  describe '.all' do
-    before do
-      ButterCMS.stub(:token).and_return('test123')
-      ButterCMS.stub(:request).and_return({"data" => [{"attribute" => 'test'}]})
+  before do
+    allow(ButterCMS).to receive(:token).and_return('test123')
+    allow(ButterCMS).to receive(:request).and_return({"data" => [{"attribute" => 'test'}]})
 
-      ButterCMS::ButterResource.stub(:resource_path).
-        and_return('')
-    end
+    allow(ButterCMS::ButterResource).to receive(:resource_path).and_return('')
+  end
+
+  describe '.all' do
 
     it 'should make a request with the correct endpoint' do
       expect(ButterCMS).to receive(:request).with('/', {})
@@ -23,14 +23,6 @@ describe ButterCMS::ButterResource do
   end
 
   describe '.find' do
-    before do
-      ButterCMS.stub(:token).and_return('test123')
-      ButterCMS.stub(:request).and_return({"data" => {"attribute" => 'test'}})
-
-      ButterCMS::ButterResource.stub(:resource_path).
-        and_return('')
-    end
-
     it 'should make a request with the correct endpoint' do
       expect(ButterCMS).to receive(:request).with('/1', {})
       ButterCMS::ButterResource.find(1)
