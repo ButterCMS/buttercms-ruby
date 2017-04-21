@@ -1,5 +1,4 @@
 require 'json'
-require 'httparty'
 require 'ostruct'
 require 'logger'
 
@@ -21,7 +20,7 @@ if RUBY_VERSION < '2.0.0'
 end
 
 module ButterCMS
-  @api_url = 'https://api.buttercms.com/v2'
+  @api_url = URI.parse('https://api.buttercms.com/v2')
 
   class << self
     attr_accessor :api_token
@@ -59,20 +58,31 @@ module ButterCMS
   end
 
   def self.api_request(path, options = {})
-    base_options = {
-      auth_token: api_token
-    }
+    query = options.dup
+    query[:auth_token] ||= api_token
 
     if test_mode
-      base_options[:test] = 1
+      query[:test] = 1
     end
 
-    response = HTTParty.get(
-      @api_url + path,
-      headers: {"User-Agent" => "ButterCMS/#{ButterCMS::VERSION}"},
-      query: options.merge(base_options),
-      verify: false
-    )
+    path = "#{@api_url.path}#{URI.encode(path)}?#{URI.encode_www_form(query)}"
+
+    http_options = {
+      open_timeout: 2.0,
+      read_timeout: 5.0,
+      ssl_timeout:  2.0,
+      use_ssl:      @api_url.scheme == "https",
+      verify_mode:  OpenSSL::SSL::VERIFY_NONE,
+    }
+
+    response =
+      Net::HTTP.start(@api_url.host, @api_url.port, http_options) do |http|
+        request = Net::HTTP::Get.new(path)
+        request["User-Agent"] = "ButterCMS/Ruby #{ButterCMS::VERSION}"
+        request["Accept"]     = "application/json"
+
+        http.request(request)
+      end
 
     response.body
   end
@@ -90,7 +100,7 @@ module ButterCMS
         logger.info "Set key #{key}"
       end
 
-    # TODO - more selective exception handling (RestClient::Exception, SocketError)
+    # TODO - more selective exception handling (SocketError)
     rescue Exception => e
 
       if data_store

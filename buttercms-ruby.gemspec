@@ -14,8 +14,6 @@ Gem::Specification.new do |s|
   s.homepage = "https://buttercms.com/docs"
   s.license = 'MIT'
 
-  s.add_dependency 'httparty', '~> 0.14', '>= 0.14.0'
-
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'webmock'
   s.required_ruby_version = '>= 1.9.3'

@@ -8,8 +8,11 @@ describe ButterCMS do
       end
 
       it 'should make an api request' do
-        stub_request(:get, 'https://api.buttercms.com/v2?auth_token=test123').to_return(body: JSON.generate({data: {test: 'test'}}))
-        expect{ ButterCMS.request('') }.to_not raise_error
+        request = stub_request(:get, "https://api.buttercms.com/v2?auth_token=test123")
+          .to_return(body: JSON.generate({data: {test: 'test'}}))
+
+        ButterCMS.request('')
+        expect(request).to have_been_made
       end
     end
 
