@@ -72,7 +72,6 @@ module ButterCMS
       read_timeout: 5.0,
       ssl_timeout:  2.0,
       use_ssl:      @api_url.scheme == "https",
-      verify_mode:  OpenSSL::SSL::VERIFY_NONE,
     }
 
     response =
