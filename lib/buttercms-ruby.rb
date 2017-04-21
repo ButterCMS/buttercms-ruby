@@ -2,6 +2,8 @@ require 'json'
 require 'ostruct'
 require 'logger'
 
+require "buttercms/errors"
+
 require_relative 'buttercms/version'
 require_relative 'buttercms/hash_to_object'
 
@@ -82,6 +84,11 @@ module ButterCMS
 
         http.request(request)
       end
+
+    case response
+    when Net::HTTPNotFound
+      raise ::ButterCMS::NotFound, JSON.parse(response.body)["detail"]
+    end
 
     response.body
   end
