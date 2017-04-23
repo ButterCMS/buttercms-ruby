@@ -15,7 +15,7 @@ module ButterCMS
     def self.fetch(keys = [], options = {})
       params = {keys: keys.join(',')}.merge(options)
 
-      response = ButterCMS.request("/content", params)
+      response = ButterCMS.request("/content/", params)
 
       self.new(response)
     end

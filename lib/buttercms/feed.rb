@@ -1,7 +1,7 @@
 module ButterCMS
   class Feed < ButterResource
     def self.resource_path
-      "/feeds"
+      "/feeds/"
     end
   end
 end

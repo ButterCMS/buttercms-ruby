@@ -1,9 +1,10 @@
 require 'json'
 require 'ostruct'
 require 'logger'
+require 'uri'
+require 'net/http'
 
-require "buttercms/errors"
-
+require_relative "buttercms/errors"
 require_relative 'buttercms/version'
 require_relative 'buttercms/hash_to_object'
 

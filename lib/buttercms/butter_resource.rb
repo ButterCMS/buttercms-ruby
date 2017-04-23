@@ -20,8 +20,9 @@ module ButterCMS
       "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@json)
     end
 
-    def self.endpoint(id = '')
-      resource_path + '/' + id.to_s
+    def self.endpoint(id = nil)
+      # Append trailing slash when id is added to path
+      resource_path + (id ? "#{id}/" : '')
     end
 
     def self.resource_path

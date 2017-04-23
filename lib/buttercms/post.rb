@@ -1,11 +1,11 @@
 module ButterCMS
   class Post < ButterResource
     def self.resource_path
-      "/posts"
+      "/posts/"
     end
 
     def self.search(query = '', options = {})
-      response = ButterCMS.request('/search', {query: query}.merge(options))
+      response = ButterCMS.request('/search/', {query: query}.merge(options))
 
       self.create_collection(response)
     end
