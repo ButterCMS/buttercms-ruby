@@ -21,7 +21,8 @@ module ButterCMS
     end
 
     def self.endpoint(id = nil)
-      # Append trailing slash when id is added to path
+      # Append trailing slash when id is added to path because
+      # API expects all endpoints to include trailing slashes
       resource_path + (id ? "#{id}/" : '')
     end
 
