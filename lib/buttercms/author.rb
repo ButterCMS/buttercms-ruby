@@ -1,7 +1,7 @@
 module ButterCMS
   class Author < ButterResource
     def self.resource_path
-      "/authors"
+      "/authors/"
     end
   end
 end

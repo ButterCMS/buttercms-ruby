@@ -1,20 +1,20 @@
 require 'json'
 require 'ostruct'
 require 'logger'
+require 'uri'
+require 'net/http'
 
 require "buttercms/errors"
-
-require_relative 'buttercms/version'
-require_relative 'buttercms/hash_to_object'
-
-require_relative 'buttercms/butter_collection'
-require_relative 'buttercms/butter_resource'
-require_relative 'buttercms/author'
-require_relative 'buttercms/category'
-require_relative 'buttercms/tag'
-require_relative 'buttercms/post'
-require_relative 'buttercms/feed'
-require_relative 'buttercms/content'
+require 'buttercms/version'
+require 'buttercms/hash_to_object'
+require 'buttercms/butter_collection'
+require 'buttercms/butter_resource'
+require 'buttercms/author'
+require 'buttercms/category'
+require 'buttercms/tag'
+require 'buttercms/post'
+require 'buttercms/feed'
+require 'buttercms/content'
 
 # See https://github.com/jruby/jruby/issues/3113
 if RUBY_VERSION < '2.0.0'

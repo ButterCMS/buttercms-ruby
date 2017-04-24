@@ -1,7 +1,7 @@
 module ButterCMS
   class Tag < ButterResource
     def self.resource_path
-      "/tags"
+      "/tags/"
     end
   end
 end

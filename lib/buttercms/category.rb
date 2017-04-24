@@ -1,7 +1,7 @@
 module ButterCMS
   class Category < ButterResource
     def self.resource_path
-      "/categories"
+      "/categories/"
     end
   end
 end
