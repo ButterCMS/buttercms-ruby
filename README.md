@@ -87,3 +87,7 @@ Test mode can be used to setup a staging website for previewing content or for t
 ```ruby
 ButterCMS::test_mode = true
 ```
+
+### Other
+
+View Ruby [Blog engine](https://buttercms.com/ruby-blog-engine/) and [Full CMS](https://buttercms.com/ruby-cms/) for other examples of using ButterCMS with Ruby.
