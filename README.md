@@ -50,11 +50,17 @@ p tags
 rss_feed = ButterCMS::Feed.find(:rss)
 puts rss_feed.data
 
+# Content fields
 content = ButterCMS::Content.fetch([
   :homepage_html_title,
   :homepage_meta_description,
   :homepage_headline
 ])
+
+# Pages
+pages = ButterCMS::Page.list('news')
+
+page = ButterCMS::Page.get('news', 'hello-world')
 ```
 
 ## Localization
