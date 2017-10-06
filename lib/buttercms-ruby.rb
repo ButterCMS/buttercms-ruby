@@ -15,6 +15,7 @@ require 'buttercms/tag'
 require 'buttercms/post'
 require 'buttercms/feed'
 require 'buttercms/content'
+require 'buttercms/page'
 
 # See https://github.com/jruby/jruby/issues/3113
 if RUBY_VERSION < '2.0.0'
