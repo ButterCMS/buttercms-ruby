@@ -25,7 +25,27 @@ To setup your project, follow these steps:
   # ButterCMS::test_mode = true
   ```
 
-## Quick Start
+## Pages
+
+```ruby
+params = {foo: 'bar'} # optional
+pages = ButterCMS::Page.list('news', params)
+page = ButterCMS::Page.get('news', 'hello-world', params)
+```
+
+## Content Fields
+
+```ruby
+ButterCMS::Content.fetch(['homepage_headline'])
+
+# Localization
+ButterCMS::Content.fetch(['homepage_headline'], locale: 'es')
+
+# Test mode can be used to setup a staging website for previewing Content Fields or for testing content during local development. To fetch content from test mode add the following configuration:
+ButterCMS::test_mode = true
+```
+
+## Blog Engine
 
 ```ruby
 posts = ButterCMS::Post.all(page: 1, page_size: 10)
@@ -49,27 +69,8 @@ p tags
 
 rss_feed = ButterCMS::Feed.find(:rss)
 puts rss_feed.data
-
-# Content fields
-content = ButterCMS::Content.fetch([
-  :homepage_html_title,
-  :homepage_meta_description,
-  :homepage_headline
-])
-
-# Pages
-pages = ButterCMS::Page.list('news')
-
-page = ButterCMS::Page.get('news', 'hello-world')
 ```
 
-## Localization
-
-Setup locales in the ButterCMS dashboard and fetch localized content using the `locale` option:
-
-```ruby
-ButterCMS::Content.fetch(['landing_pages'], locale: :es)
-```
 
 ## Fallback Data Store
 
@@ -84,14 +85,6 @@ ButterCMS::data_store = :redis, ENV['REDIS_URL']
 
 # Set logger (optional)
 ButterCMS::logger = MyLogger.new
-```
-
-## Test mode
-
-Test mode can be used to setup a staging website for previewing content or for testing content during local development. To fetch content from test mode add the following configuration:
-
-```ruby
-ButterCMS::test_mode = true
 ```
 
 ### Other
