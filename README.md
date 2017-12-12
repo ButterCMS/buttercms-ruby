@@ -48,7 +48,7 @@ ButterCMS::test_mode = true
 ## Blog Engine
 
 ```ruby
-posts = ButterCMS::Post.all(page: 1, page_size: 10)
+posts = ButterCMS::Post.all({:page => 1, :page_size => 10})
 puts posts.first.title
 puts posts.meta.next_page
 
