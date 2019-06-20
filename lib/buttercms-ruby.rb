@@ -28,6 +28,7 @@ module ButterCMS
   class << self
     attr_accessor :api_token
     attr_accessor :test_mode
+    attr_accessor :read_timeout
     attr_reader :data_store
     attr_writer :logger
   end
@@ -72,7 +73,7 @@ module ButterCMS
 
     http_options = {
       open_timeout: 2.0,
-      read_timeout: 5.0,
+      read_timeout: read_timeout || 5.0,
       ssl_timeout:  2.0,
       use_ssl:      @api_url.scheme == "https",
     }

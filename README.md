@@ -23,6 +23,9 @@ To setup your project, follow these steps:
 
   # Fetch content from test mode (eg. for your staging website)
   # ButterCMS::test_mode = true
+
+  # Set read timeout (Default is 5.0)
+  # ButterCMS::read_timeout = 5.0
   ```
 
 ## Pages
