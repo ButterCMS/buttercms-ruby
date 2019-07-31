@@ -39,7 +39,7 @@ pages = ButterCMS::Page.list('news', params)
 page = ButterCMS::Page.get('news', 'hello-world', params)
 ```
 
-## Content Fields
+## Collections
 
 https://buttercms.com/docs/api/?ruby#retrieve-a-collection
 
@@ -47,7 +47,7 @@ https://buttercms.com/docs/api/?ruby#retrieve-a-collection
 params = {page: 1, page_size: 10, locale: 'en', preview: 1, fields.headline: 'foo bar', levels: 2} # optional
 ButterCMS::Content.fetch(['testimonials'], params)
 
-# Test mode can be used to setup a staging website for previewing Content Fields or for testing content during local development. To fetch content from test mode add the following configuration:
+# Test mode can be used to setup a staging website for previewing Collections or for testing content during local development. To fetch content from test mode add the following configuration:
 ButterCMS::test_mode = true
 ```
 
