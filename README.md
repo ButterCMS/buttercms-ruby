@@ -30,25 +30,30 @@ To setup your project, follow these steps:
 
 ## Pages
 
+https://buttercms.com/docs/api/?ruby#pages
+
+
 ```ruby
-params = {foo: 'bar'} # optional
+params = {page: 1, page_size: 10, locale: 'en', preview: 1, fields.headline: 'foo bar', levels: 2} # optional
 pages = ButterCMS::Page.list('news', params)
 page = ButterCMS::Page.get('news', 'hello-world', params)
 ```
 
 ## Content Fields
 
-```ruby
-ButterCMS::Content.fetch(['homepage_headline'])
+https://buttercms.com/docs/api/?ruby#retrieve-a-collection
 
-# Localization
-ButterCMS::Content.fetch(['homepage_headline'], locale: 'es')
+```ruby
+params = {page: 1, page_size: 10, locale: 'en', preview: 1, fields.headline: 'foo bar', levels: 2} # optional
+ButterCMS::Content.fetch(['homepage_headline'], params)
 
 # Test mode can be used to setup a staging website for previewing Content Fields or for testing content during local development. To fetch content from test mode add the following configuration:
 ButterCMS::test_mode = true
 ```
 
 ## Blog Engine
+
+https://buttercms.com/docs/api/?ruby#blog-engine
 
 ```ruby
 posts = ButterCMS::Post.all({:page => 1, :page_size => 10})
