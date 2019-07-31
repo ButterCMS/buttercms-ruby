@@ -45,7 +45,7 @@ https://buttercms.com/docs/api/?ruby#retrieve-a-collection
 
 ```ruby
 params = {page: 1, page_size: 10, locale: 'en', preview: 1, fields.headline: 'foo bar', levels: 2} # optional
-ButterCMS::Content.fetch(['homepage_headline'], params)
+ButterCMS::Content.fetch(['testimonials'], params)
 
 # Test mode can be used to setup a staging website for previewing Content Fields or for testing content during local development. To fetch content from test mode add the following configuration:
 ButterCMS::test_mode = true
