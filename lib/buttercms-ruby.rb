@@ -150,6 +150,8 @@ module ButterCMS
         http.request(request)
       end
 
+    puts "response from butter"
+    puts response.inspect
     case response
     when Net::HTTPNotFound
       raise ::ButterCMS::NotFound, JSON.parse(response.body)["detail"]
