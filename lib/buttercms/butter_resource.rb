@@ -62,7 +62,6 @@ module ButterCMS
       else
         self.endpoint(id)
       end
-      puts "update endpoint is #{_endpoint}"
       response = ButterCMS.write_request(_endpoint, options)
 
       self.create_object(response)
