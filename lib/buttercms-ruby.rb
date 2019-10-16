@@ -152,6 +152,7 @@ module ButterCMS
 
     puts "response from butter"
     puts response.inspect
+    binding.pry
     puts JSON.parse(response.body)["detail"]
     case response
     when Net::HTTPNotFound
