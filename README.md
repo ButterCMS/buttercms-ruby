@@ -80,18 +80,21 @@ ButterCMS::Post.update('blog-slug', {
 
 # Create a page
 ButterCMS::Page.create({
-  slug: 'page-slug-2',
+  slug: 'page-slug',
   title: 'page-title',
   status: 'published',
-  "page-type": 'product_page',
+  "page-type": 'page_type',
   fields: {
     meta_title: 'test meta title'
   }
 })
 
 # update a Page
-ButterCMS::Page.update('test-product', {
+ButterCMS::Page.update('page-slug-2', {
   status: 'published',
+  fields: {
+    meta_title: 'test meta title'
+  }
 })
 
 
