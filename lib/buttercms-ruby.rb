@@ -27,6 +27,7 @@ module ButterCMS
 
   class << self
     attr_accessor :api_token
+    attr_accessor :write_api_token
     attr_accessor :test_mode
     attr_accessor :read_timeout
     attr_reader :data_store
@@ -70,13 +71,6 @@ module ButterCMS
     end
 
     path = "#{@api_url.path}#{URI.encode(path)}?#{URI.encode_www_form(query)}"
-
-    http_options = {
-      open_timeout: 2.0,
-      read_timeout: read_timeout || 5.0,
-      ssl_timeout:  2.0,
-      use_ssl:      @api_url.scheme == "https",
-    }
 
     response =
       Net::HTTP.start(@api_url.host, @api_url.port, http_options) do |http|
@@ -127,5 +121,50 @@ module ButterCMS
     end
 
     return JSON.parse(result)
+  end
+  
+  def self.write_request(path, options = {})
+    raise ArgumentError.new "Please set your write API token" unless write_api_token
+    result = write_api_request(path, options)
+
+    return JSON.parse(result)
+  end
+  
+  def self.write_api_request(path, options = {})
+    query = options.dup
+    token_for_request = query[:auth_token] || write_api_token
+
+    path = "#{@api_url.path}#{URI.encode(path)}"
+
+    response =
+      Net::HTTP.start(@api_url.host, @api_url.port, http_options) do |http|
+        write_type = query[:method] || "Post"
+        request_type = "Net::HTTP::#{write_type}".constantize
+        request = request_type.new(path)
+        request["User-Agent"] = "ButterCMS/Ruby #{ButterCMS::VERSION}"
+        request["Accept"]     = "application/json"
+        request["Content-Type"] = "application/json"
+        request["Authorization"] = "Token #{token_for_request}"
+        request.body = query.except(:auth_token)
+        http.request(request)
+      end
+
+    case response
+    when Net::HTTPNotFound
+      raise ::ButterCMS::NotFound, JSON.parse(response.body)["detail"]
+    end
+
+    response.body
+  end
+  
+  private
+  
+  def self.http_options
+    {
+      open_timeout: 2.0,
+      read_timeout: read_timeout || 5.0,
+      ssl_timeout:  2.0,
+      use_ssl:      @api_url.scheme == "https",
+    }
   end
 end

@@ -41,6 +41,20 @@ module ButterCMS
 
       self.create_object(response)
     end
+    
+    def self.create(id, options = {})
+      options[:method] = 'Post'
+      response = ButterCMS.write_request(self.endpoint(id), options)
+
+      self.create_object(response)
+    end
+    
+    def self.update(id, options = {})
+      options[:method] = 'Patch'
+      response = ButterCMS.write_request(self.endpoint(id), options)
+
+      self.create_object(response)
+    end
 
     private
 
