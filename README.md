@@ -89,6 +89,11 @@ ButterCMS::Page.create({
   }
 })
 
+# update a Page
+ButterCMS::Page.update('test-product', {
+  status: 'published',
+})
+
 
 
 author = ButterCMS::Author.find("author-slug")
