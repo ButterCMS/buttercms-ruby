@@ -132,13 +132,13 @@ module ButterCMS
   
   def self.write_api_request(path, options = {})
     query = options.dup
-    token_for_request = query[:auth_token] || write_api_token
+    token_for_request = query.delete(:auth_token) || write_api_token
 
     path = "#{@api_url.path}#{URI.encode(path)}"
 
     response =
       Net::HTTP.start(@api_url.host, @api_url.port, http_options) do |http|
-        write_type = query[:method] || "Post"
+        write_type = query.delete(:method) || "Post"
         request_type = "Net::HTTP::#{write_type}".constantize
         request = request_type.new(path)
         request["User-Agent"] = "ButterCMS/Ruby #{ButterCMS::VERSION}"
@@ -146,6 +146,7 @@ module ButterCMS
         request["Content-Type"] = "application/json"
         request["Authorization"] = "Token #{token_for_request}"
         request.body = query.except(:auth_token)
+
         http.request(request)
       end
 

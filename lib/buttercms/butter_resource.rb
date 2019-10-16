@@ -42,9 +42,9 @@ module ButterCMS
       self.create_object(response)
     end
     
-    def self.create(id, options = {})
+    def self.create(options = {})
       options[:method] = 'Post'
-      response = ButterCMS.write_request(self.endpoint(id), options)
+      response = ButterCMS.write_request(self.endpoint, options)
 
       self.create_object(response)
     end
