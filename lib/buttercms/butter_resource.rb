@@ -29,7 +29,7 @@ module ButterCMS
     def self.patch_endpoint(id)
       # Append trailing slash when id is added to path because
       # API expects all endpoints to include trailing slashes
-      resource_path + "#{id}/*/"
+      resource_path + "*/#{id}/"
     end
 
     def self.resource_path
@@ -57,7 +57,13 @@ module ButterCMS
     
     def self.update(id, options = {})
       options[:method] = 'Patch'
-      response = ButterCMS.write_request(self.patch_endpoint(id), options)
+      _endpoint = if resource_path.include?("/pages/")
+        self.patch_endpoint(id)
+      else
+        self.endpoint(id)
+      end
+      puts "update endpoint is #{_endpoint}"
+      response = ButterCMS.write_request(_endpoint, options)
 
       self.create_object(response)
     end
