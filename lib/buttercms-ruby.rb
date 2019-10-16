@@ -154,7 +154,15 @@ module ButterCMS
     when Net::HTTPNotFound
       raise ::ButterCMS::NotFound, JSON.parse(response.body)["detail"]
     when Net::HTTPBadRequest
-      raise ::ButterCMS::BadRequest, JSON.parse(response.body).join(" ")
+      parsed_body = JSON.parse(response.body)
+      errors = if parsed_body.is_a?(Array)
+        parsed_body.join(' ')
+      else
+        parsed_body.map do |k, v|
+          "#{k}: #{v}"
+        end.join(" ")
+      end
+      raise ::ButterCMS::BadRequest, errors
     end
 
     response.body
