@@ -150,15 +150,11 @@ module ButterCMS
         http.request(request)
       end
 
-    puts "response from butter"
-    puts response.inspect
-    binding.pry
-    puts JSON.parse(response.body)["detail"]
     case response
     when Net::HTTPNotFound
       raise ::ButterCMS::NotFound, JSON.parse(response.body)["detail"]
     when Net::HTTPBadRequest
-      raise ::ButterCMS::BadRequest, JSON.parse(response.body)["detail"]
+      raise ::ButterCMS::BadRequest, JSON.parse(response.body).join(" ")
     end
 
     response.body
