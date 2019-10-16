@@ -66,6 +66,11 @@ puts posts.first.title
 post = ButterCMS::Post.find("post-slug")
 puts post.title
 
+ButterCMS::Post.create({
+  slug: 'test-slug',
+  title: 'test-title'
+})
+
 author = ButterCMS::Author.find("author-slug")
 puts author.first_name
 

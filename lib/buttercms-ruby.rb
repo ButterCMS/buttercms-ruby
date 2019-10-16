@@ -145,7 +145,7 @@ module ButterCMS
         request["Accept"]     = "application/json"
         request["Content-Type"] = "application/json"
         request["Authorization"] = "Token #{token_for_request}"
-        request.body = query.except(:auth_token)
+        request.body = query.except(:auth_token).to_json
 
         http.request(request)
       end
