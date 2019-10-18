@@ -66,6 +66,39 @@ puts posts.first.title
 post = ButterCMS::Post.find("post-slug")
 puts post.title
 
+# Create a Post.
+ButterCMS::write_api_token = "YourWriteToken"
+ButterCMS::Post.create({
+  slug: 'blog-slug',
+  title: 'blog-title'
+})
+
+# Update a Post
+ButterCMS::Post.update('blog-slug', {
+  title: 'blog-title-v2'
+})
+
+# Create a page
+ButterCMS::Page.create({
+  slug: 'page-slug',
+  title: 'page-title',
+  status: 'published',
+  "page-type": 'page_type',
+  fields: {
+    meta_title: 'test meta title'
+  }
+})
+
+# update a Page
+ButterCMS::Page.update('page-slug-2', {
+  status: 'published',
+  fields: {
+    meta_title: 'test meta title'
+  }
+})
+
+
+
 author = ButterCMS::Author.find("author-slug")
 puts author.first_name
 
