@@ -20,3 +20,4 @@ tmp
 .rvmrc
 *.rdb
 *.store
+test.rb
