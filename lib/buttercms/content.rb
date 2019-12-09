@@ -14,7 +14,7 @@ module ButterCMS
       params = { keys: collection_slugs.join(',') }.merge(options)
       response = ButterCMS.request(self.resource_path, params)
       
-      self.create_collection(response)
+      self.new(response)
     end
   end
 end
