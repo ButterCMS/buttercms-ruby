@@ -1,22 +1,19 @@
 module ButterCMS
-  class Content
-    attr_reader :data
-
-    def initialize(json)
-      @json = json
-      @data = HashToObject.convert(json["data"])
+  class Content < ButterResource
+    def self.resource_path
+      "/content/"
     end
 
-    def inspect
-      id_string = (self.respond_to?(:id) && !self.id.nil?) ? " id=#{self.id}" : ""
-      "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@json)
+    def self.list(collection_slug, options = {})
+      response = ButterCMS.request(self.endpoint(collection_slug), options)
+
+      self.create_collection(response)
     end
-
-    def self.fetch(keys = [], options = {})
-      params = {keys: keys.join(',')}.merge(options)
-
-      response = ButterCMS.request("/content/", params)
-
+    
+    def self.fetch(collection_slugs, options = {})
+      params = { keys: collection_slugs.join(',') }.merge(options)
+      response = ButterCMS.request(self.resource_path, params)
+      
       self.new(response)
     end
   end

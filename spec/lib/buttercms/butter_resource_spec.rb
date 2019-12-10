@@ -11,7 +11,7 @@ describe ButterCMS::ButterResource do
   describe '.all' do
 
     it 'should make a request with the correct endpoint' do
-      expect(ButterCMS).to receive(:request).with('/', {})
+      expect(ButterCMS).to receive(:request).with('', {})
       ButterCMS::ButterResource.all()
     end
 
@@ -24,7 +24,7 @@ describe ButterCMS::ButterResource do
 
   describe '.find' do
     it 'should make a request with the correct endpoint' do
-      expect(ButterCMS).to receive(:request).with('/1', {})
+      expect(ButterCMS).to receive(:request).with('1/', {})
       ButterCMS::ButterResource.find(1)
     end
 

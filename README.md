@@ -44,8 +44,12 @@ page = ButterCMS::Page.get('news', 'hello-world', params)
 https://buttercms.com/docs/api/?ruby#retrieve-a-collection
 
 ```ruby
-params = {page: 1, page_size: 10, locale: 'en', preview: 1, fields.headline: 'foo bar', levels: 2} # optional
-ButterCMS::Content.fetch(['testimonials'], params)
+# list each instance of a given collection with meta data for fetching the next page.
+params = { page: 1, page_size: 10, locale: 'en', preview: 1, fields.headline: 'foo bar', levels: 2 } # optional
+ButterCMS::Content.list('collection1', params)
+
+# list instances for multiple collections, this will not return meta data for pagination control.
+ButterCMS::Content.fetch(['collection1', 'collection2'], params)
 
 # Test mode can be used to setup a staging website for previewing Collections or for testing content during local development. To fetch content from test mode add the following configuration:
 ButterCMS::test_mode = true
@@ -131,3 +135,5 @@ ButterCMS::logger = MyLogger.new
 ### Other
 
 View Ruby [Blog engine](https://buttercms.com/ruby-blog-engine/) and [Full CMS](https://buttercms.com/ruby-cms/) for other examples of using ButterCMS with Ruby.
+
+### Development
