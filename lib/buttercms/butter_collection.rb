@@ -2,6 +2,7 @@ module ButterCMS
   class ButterCollection
     include Enumerable
 
+    attr_reader :items
     attr_reader :meta
 
     def initialize(klass, json)
