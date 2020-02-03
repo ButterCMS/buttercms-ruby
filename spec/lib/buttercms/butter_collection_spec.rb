@@ -21,4 +21,20 @@ describe ButterCMS::ButterCollection do
 
     expect(collection.count).to eq 1
   end
+
+  # Marshal.load (used by Rails for caching) was not restoring the ButterResource's dynamic methods
+  # See https://github.com/ButterCMS/buttercms-ruby/issues/13
+  describe 'marshal load' do
+    subject { described_class.new(ButterCMS::ButterResource, 'data' => [{ 'name' => 'Test Name', 'description' => 'Test Description' }]) }
+
+    it 'restores the ButterResource dynamic methods' do
+      collection = Marshal.load(Marshal.dump(subject))
+      resource = collection.first
+
+      aggregate_failures do
+        expect(resource.name).to eq('Test Name')
+        expect(resource.description).to eq('Test Description')
+      end
+    end
+  end
 end
