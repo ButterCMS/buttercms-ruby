@@ -8,6 +8,17 @@ describe ButterCMS::ButterResource do
     allow(ButterCMS::ButterResource).to receive(:resource_path).and_return('')
   end
 
+  describe 'auto-generated methods' do
+    let(:resource) { described_class.new('data' => { 'name' => 'Test Name', 'description' => 'Test Description' }) }
+
+    it 'creates attribute reader methods for data pairs' do
+      aggregate_failures do
+        expect(resource.name).to eq('Test Name')
+        expect(resource.description).to eq('Test Description')
+      end
+    end
+  end
+
   describe '.all' do
 
     it 'should make a request with the correct endpoint' do

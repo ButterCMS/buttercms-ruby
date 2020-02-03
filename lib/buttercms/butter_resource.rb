@@ -7,12 +7,19 @@ module ButterCMS
       @data = HashToObject.convert(json["data"])
       @meta = HashToObject.convert(json["meta"]) if json["meta"]
 
-      if json["data"].is_a?(Hash)
-        json["data"].each do |key, value|
-          instance_variable_set("@#{key}", @data.send(key))
-          self.class.send(:attr_reader, key)
-        end
-      end
+      define_attribute_methods(@data)
+    end
+
+    def marshal_dump
+      { json: @json, data: @data, meta: @meta }
+    end
+
+    def marshal_load(dump)
+      @json = dump[:json]
+      @data = dump[:data]
+      @meta = dump[:meta]
+
+      define_attribute_methods(@data)
     end
 
     def inspect
@@ -25,7 +32,7 @@ module ButterCMS
       # API expects all endpoints to include trailing slashes
       resource_path + (id ? "#{id}/" : '')
     end
-    
+
     def self.patch_endpoint(id)
       # Append trailing slash when id is added to path because
       # API expects all endpoints to include trailing slashes
@@ -47,14 +54,14 @@ module ButterCMS
 
       self.create_object(response)
     end
-    
+
     def self.create(options = {})
       options[:method] = 'Post'
       response = ButterCMS.write_request(self.endpoint, options)
 
       self.create_object(response)
     end
-    
+
     def self.update(id, options = {})
       options[:method] = 'Patch'
       _endpoint = if resource_path.include?("/pages/")
@@ -75,6 +82,15 @@ module ButterCMS
 
     def self.create_object(response)
       self.new(response)
+    end
+
+    def define_attribute_methods(methods)
+      return unless methods.respond_to?(:each_pair)
+
+      methods.each_pair do |key, value|
+        instance_variable_set("@#{key}", value)
+        self.class.send(:attr_reader, key)
+      end
     end
   end
 end
