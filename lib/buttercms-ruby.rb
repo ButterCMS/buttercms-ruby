@@ -75,18 +75,32 @@ module ButterCMS
     response =
       Net::HTTP.start(@api_url.host, @api_url.port, http_options) do |http|
         request = Net::HTTP::Get.new(path)
-        request["User-Agent"] = "ButterCMS/Ruby #{ButterCMS::VERSION}"
-        request["Accept"]     = "application/json"
+        request["User-Agent"]      = "ButterCMS/Ruby #{ButterCMS::VERSION}"
+        request["Accept"]          = "application/json"
+        request["Accept-Encoding"] = "gzip"
 
         http.request(request)
       end
 
     case response
-    when Net::HTTPNotFound
-      raise ::ButterCMS::NotFound, JSON.parse(response.body)["detail"]
+      when Net::HTTPSuccess
+        begin
+          if response.header['Content-Encoding'].eql?('gzip') then
+            sio = StringIO.new(response.body)
+            gz = Zlib::GzipReader.new(sio)
+            body = gz.read()      
+          else
+            body = response.body
+          end
+        rescue Exception
+          # handle errors
+          raise $!.message
+        end
+      when Net::HTTPNotFound
+        raise ::ButterCMS::NotFound, JSON.parse(response.body)["detail"]
     end
 
-    response.body
+    body
   end
 
   def self.request(path, options = {})
