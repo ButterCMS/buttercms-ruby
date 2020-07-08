@@ -26,6 +26,9 @@ To setup your project, follow these steps:
 
   # Set read timeout (Default is 5.0)
   # ButterCMS::read_timeout = 5.0
+
+  # Set open timeout (Default is 2.0)
+  # ButterCMS::open_timeout = 2.0
   ```
 
 ## Pages
