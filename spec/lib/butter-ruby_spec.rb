@@ -14,6 +14,22 @@ describe ButterCMS do
         ButterCMS.request('')
         expect(request).to have_been_made
       end
+
+      it "should properly escape paths" do
+        request = stub_request(
+          :get,
+          "https://api.buttercms.com/v2/pages/*/homepage%20en?auth_token=test123"
+        ).to_return(body: JSON.generate({data: {test: 'test'}}))
+
+        # support leading slashes
+        ButterCMS.request('/pages/*/homepage en')
+
+        # and no leading slashes
+        ButterCMS.request('pages/*/homepage en')
+
+
+        expect(request).to have_been_made.twice
+      end
     end
 
     context 'without an api token' do

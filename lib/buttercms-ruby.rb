@@ -71,7 +71,13 @@ module ButterCMS
       query[:test] = 1
     end
 
-    path = "#{@api_url.path}#{URI.encode_www_form_component(path)}?#{URI.encode_www_form(query)}"
+    # If the user has passed in a "/" leading path, don't interpret that
+    # as wanting to get rid of the API prefix
+    if path.start_with?("/")
+      path = path[1..-1]
+    end
+
+    path = Pathname.new(@api_url.path).join(path).to_s + "?#{URI.encode_www_form(query)}"
 
     response =
       Net::HTTP.start(@api_url.host, @api_url.port, http_options) do |http|
