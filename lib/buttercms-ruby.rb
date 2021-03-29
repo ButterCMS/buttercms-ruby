@@ -71,7 +71,7 @@ module ButterCMS
       query[:test] = 1
     end
 
-    path = "#{@api_url.path}#{URI.encode_www_form(path)}?#{URI.encode_www_form(query)}"
+    path = "#{@api_url.path}#{URI.encode_www_form_component(path)}?#{URI.encode_www_form(query)}"
 
     response =
       Net::HTTP.start(@api_url.host, @api_url.port, http_options) do |http|
