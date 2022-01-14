@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.name = "buttercms-ruby"
   s.version = ButterCMS::VERSION
   s.require_paths = ["lib"]
-  s.summary = 'A simple Ruby client for the buttercms.com REST API'
-  s.description = 'Butter is a blogging platform loved by engineers. See https://buttercms.com for details.'
+  s.summary = 'Ruby API client for ButterCMS'
+  s.description = 'Butter is the #1 developer rated headless CMS. See https://buttercms.com for details.'
   s.authors = ["ButterCMS"]
   s.email= ["support@buttercms.com"]
   s.homepage = "https://buttercms.com/docs"

@@ -15,5 +15,11 @@ module ButterCMS
 
       self.create_object(response)
     end
+
+    def self.search(query = '', options = {})
+      response = ButterCMS.request('/pages/search/', {query: query}.merge(options))
+      
+      self.create_collection(response)
+    end
   end
 end

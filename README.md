@@ -39,7 +39,10 @@ https://buttercms.com/docs/api/?ruby#pages
 ```ruby
 params = {page: 1, page_size: 10, locale: 'en', preview: 1, 'fields.headline': 'foo bar', levels: 2} # optional
 pages = ButterCMS::Page.list('news', params)
+
 page = ButterCMS::Page.get('news', 'hello-world', params)
+
+pages = ButterCMS::Page.search('query', params)
 ```
 
 ## Collections
