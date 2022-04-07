@@ -3,6 +3,7 @@ require 'ostruct'
 require 'logger'
 require 'uri'
 require 'net/http'
+require 'pathname'
 
 require "buttercms/errors"
 require 'buttercms/version'
