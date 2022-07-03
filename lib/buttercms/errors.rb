@@ -6,6 +6,9 @@ module ButterCMS
   # NotFound is raised when a resource cannot be found
   class NotFound < Error
   end
+
+  class Unauthorized < Error
+  end
   
   class BadRequest < Error
   end

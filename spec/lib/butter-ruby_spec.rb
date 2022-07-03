@@ -50,5 +50,18 @@ describe ButterCMS do
 
       expect(request).to have_been_made
     end
+
+    it "raises Unauthorized on 401" do
+      allow(ButterCMS).to receive(:api_token).and_return("test")
+
+      request = stub_request(:get, %r{/posts/slug/})
+        .with(query: { auth_token: "test" })
+        .to_return(status: 401, body: '{"detail":"Invalid token."}')
+
+      expect { ButterCMS.request("/posts/slug/") }
+        .to raise_error(ButterCMS::Unauthorized)
+
+      expect(request).to have_been_made
+    end
   end
 end
