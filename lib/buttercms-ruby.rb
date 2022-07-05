@@ -92,6 +92,8 @@ module ButterCMS
     case response
     when Net::HTTPNotFound
       raise ::ButterCMS::NotFound, JSON.parse(response.body)["detail"]
+    when Net::HTTPUnauthorized
+      raise ::ButterCMS::Unauthorized, JSON.parse(response.body)['detail']
     end
 
     response.body
