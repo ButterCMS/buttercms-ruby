@@ -9,13 +9,9 @@ module ButterCMS
   module DataStoreAdapters
     class Redis
       def initialize(options)
-        redis_param = options.first
+        redis_url = options.first
 
-        if redis_param.is_a?(String)
-          @redis = ::Redis.new(url: redis_param)
-        else # redis instance was passed in
-          @redis = redis_param
-        end
+        @redis = ::Redis.new(url: redis_url)
       end
 
       def set(key, value)
