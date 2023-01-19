@@ -59,6 +59,9 @@ module ButterCMS
     when :redis
       require_relative 'buttercms/data_store_adapters/redis'
       @data_store = ButterCMS::DataStoreAdapters::Redis.new(options)
+    when :redis_ssl
+      require_relative 'buttercms/data_store_adapters/redis_ssl'
+      @data_store = ButterCMS::DataStoreAdapters::RedisSSL.new(options)
     else
       raise ArgumentError.new "Invalid ButterCMS data store #{strategy}"
     end
@@ -132,14 +135,14 @@ module ButterCMS
 
     return JSON.parse(result)
   end
-  
+
   def self.write_request(path, options = {})
     raise ArgumentError.new "Please set your write API token" unless write_api_token
     result = write_api_request(path, options)
 
     return JSON.parse(result)
   end
-  
+
   def self.write_api_request(path, options = {})
     query = options.dup
     token_for_request = query.delete(:auth_token) || write_api_token
@@ -177,9 +180,9 @@ module ButterCMS
 
     response.body
   end
-  
+
   private
-  
+
   def self.http_options
     {
       open_timeout: open_timeout || 2.0,
