@@ -134,6 +134,9 @@ ButterCMS::data_store = :yaml, "/File/Path/For/buttercms.store"
 # Use Redis
 ButterCMS::data_store = :redis, ENV['REDIS_URL']
 
+# Use Redis over ssl store
+ButterCMS.data_store = :redis_ssl, ENV["REDIS_URL"], { ca_file: "/path/to/ca.crt" }
+
 # Set logger (optional)
 ButterCMS::logger = MyLogger.new
 ```
