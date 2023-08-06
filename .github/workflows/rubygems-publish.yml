@@ -1,0 +1,30 @@
+# This workflow will publish a gem to rubygems.org when a release is created
+
+name: Publish Gem
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    if: contains(github.event.head_commit.message, 'chore(release)')
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3.5.3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.7"
+      - run: gem build
+      # add RubyGems API key into the credentials file and update permissions
+      - run: |
+          cat << EOF > ~/.gem/credentials
+          ---
+          :rubygems_api_key: ${RUBYGEMS_API_KEY}
+          EOF
+          chmod 0600 ~/.gem/credentials
+        env:
+          RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+      - run: gem push *.gem
