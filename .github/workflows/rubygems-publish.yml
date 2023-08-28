@@ -19,12 +19,12 @@ jobs:
           ruby-version: "2.7"
       - run: gem build
       # add RubyGems API key into the credentials file and update permissions
-      - run: |
+      - env:
+          RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+        run: |
           cat << EOF > ~/.gem/credentials
           ---
           :rubygems_api_key: ${RUBYGEMS_API_KEY}
           EOF
           chmod 0600 ~/.gem/credentials
-        env:
-          RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
-      - run: gem push *.gem
+      - run: gem push ./*.gem
